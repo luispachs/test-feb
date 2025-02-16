@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose 
 
-const TrackingSchema = new Schema({
+const ProgramSchema = new Schema({
   name:{
     type: Schema.Types.String,
   },
@@ -12,14 +12,14 @@ const TrackingSchema = new Schema({
     type: Schema.Types.String,
   }
 }, {
-  collection: 'trackings', timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+  collection: 'programs', timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 })
 
-TrackingSchema.plugin(mongoose_delete, {
+ProgramSchema.plugin(mongoose_delete, {
   deletedAt: true,
   overrideMethods: 'all',
   indexFields: 'all' 
 }) 
 
 
-export const TrackingModel = mongoose.model<any, any>('Tracking', TrackingSchema) 
+export const ProgramModel = mongoose.model<any, any>('Program', ProgramSchema) 

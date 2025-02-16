@@ -10,35 +10,27 @@ export interface ILead {
 }
 
 const LeadSchema = new Schema({
-  display:{
-    icon: {type: Schema.Types.String, default: '🔥'}
-  },
-  adviser:{
-    type: Schema.Types.ObjectId,
-    ref: 'Third',
-    required: true
-  },
   incremental:{
+    //numero unico de 4 digitos 
     type: Schema.Types.Number,
   },
+  full_name: {type: Schema.Types.String},
+  first_name: {type: Schema.Types.String},
+  last_name: {type: Schema.Types.String},
+  email: {type: Schema.Types.String},
+  mobile_phone: {type: Schema.Types.String},
+  interestProgram: {type: Schema.Types.ObjectId, ref: 'Program'},
   status:{
     type: Schema.Types.String,
-    enum: ['grading', 'active', 'aborted', 'sold','dropped'],
-    default: 'grading'
+    enum: ['active', 'inactive'],
+    default: 'active'
   },
-  trackings:[
+  trackings: [
     {
-      tracking: {type: Schema.Types.ObjectId, ref: 'Tracking'},
-      interest: {type: Schema.Types.Number, default: 0},
-      comment: {type: Schema.Types.String, default: ''},
-      next_date: {type: Schema.Types.Date},
-      created_at: {type: Schema.Types.Date, default: Date.now},
+        tracking: {type: Schema.Types.ObjectId, ref: 'Tracking'},
+        description: {type: Schema.Types.String},
     }
-  ],
-  contact:{
-    type: Schema.Types.ObjectId,
-    ref: 'Third'
-  }
+  ]
 }, {
   collection: 'leads', timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 })
