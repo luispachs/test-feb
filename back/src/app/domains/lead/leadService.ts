@@ -4,6 +4,7 @@
 
 // @import_models
 import { Lead, Campaign, Third, Adnetwork, Tracking, Message, Interaction } from "@app/models"
+import { LeadModel } from "@app/models/leadModel";
 
 // @import_utilities
 import { responseUtility } from "@core/utilities/responseUtility"
@@ -292,6 +293,19 @@ class LeadService {
     }
   }
   
+
+  public async save(_params){
+    try{
+      let model = new LeadModel(_params.user);
+      model.save();
+      return responseUtility.success({
+        model
+      })
+      
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   
   public async get (_params:{_id:string}) {

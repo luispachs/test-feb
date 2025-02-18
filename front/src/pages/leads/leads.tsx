@@ -82,7 +82,7 @@ export default function Leads (props?: LeadsProps) {
   },[control]);
 
   const submitForm =(e:FormEvent<HTMLFormElement>)=>{
-      e.stopPropagation();
+      e.preventDefault();
 
       let auxErrors = [];
       if(nameRef.current.value==""){
@@ -104,17 +104,19 @@ export default function Leads (props?: LeadsProps) {
 
       setFormErrors(auxErrors);
 
-      if(auxErrors.length == 0){
-        leadService.post({
-          first_name: nameRef.current.value,
-          last_name:lastnameRef.current.value,
-          full_name:lastnameRef.current.value+" "+nameRef.current.value,
-          email:emailRef.current.value,
-          mobile_phone:phoneRef.current.value,
-          interestProgram:selectValue,
-          status:'active'
-        })
+      if(auxErrors.length >0){
+        return;
       }
+
+      leadService.post({
+        first_name: nameRef.current.value,
+        last_name:lastnameRef.current.value,
+        full_name:lastnameRef.current.value+" "+nameRef.current.value,
+        email:emailRef.current.value,
+        mobile_phone:phoneRef.current.value,
+        interestProgram:selectValue,
+        status:'active'
+      })
   }
 
   return (
@@ -144,14 +146,14 @@ export default function Leads (props?: LeadsProps) {
                     <article>
                     <Label htmlFor="program">Programa</Label>
                     <Select value={selectValue} onValueChange={(v)=>{
-
-                        
-                        let selected:{_id:string;name:string;description:string}[] = rawPrograms.filter(elem=>{
-                          return elem._id == v;
+                    rawPrograms.forEach(elem=>{
+                          if(elem._id == v){
+                            console.log(elem);
+                            setSelectValue(elem._id);
+                            setSelectLabel(elem.name);
+                          }
                         })
-                        setSelectValue(selected[0]["_id"]);
-                       
-                        setSelectLabel(selected[0]["name"]);
+                     
                     }}>
                       <SelectTrigger>
                       <SelectValue placeholder={selectLabel} onChange={e=>{console.log(e)}}></SelectValue>

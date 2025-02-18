@@ -34,6 +34,13 @@ class LeadController {
 
   public upsert = async(req: Request, res: Response) => {
     const _params = req._data()
+    console.log(_params)
+    const response = await this.service.upsert(_params)
+    return responseUtility.build(res, response)
+  }
+  public save = async(req: Request, res: Response) => {
+    const _params = req._data()
+    console.log(_params)
     const response = await this.service.upsert(_params)
     return responseUtility.build(res, response)
   }
