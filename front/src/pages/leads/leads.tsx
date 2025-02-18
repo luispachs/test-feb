@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SelectItem, SelectScrollDownButton, SelectScrollUpButton } from "@radix-ui/react-select";
 import { programService } from "@/services/programService";
+import { set } from "date-fns";
  
 export interface LeadsProps {
 }
@@ -109,14 +110,17 @@ export default function Leads (props?: LeadsProps) {
       }
 
       leadService.post({
-        first_name: nameRef.current.value,
-        last_name:lastnameRef.current.value,
-        full_name:lastnameRef.current.value+" "+nameRef.current.value,
-        email:emailRef.current.value,
-        mobile_phone:phoneRef.current.value,
-        interestProgram:selectValue,
-        status:'active'
+          user:{
+            first_name: nameRef.current.value,
+            last_name:lastnameRef.current.value,
+            full_name:lastnameRef.current.value+" "+nameRef.current.value,
+            email:emailRef.current.value,
+            mobile_phone:phoneRef.current.value,
+            interestProgram:selectValue,
+            status:'active'
+          }
       })
+      setcontrol(control+1);
   }
 
   return (

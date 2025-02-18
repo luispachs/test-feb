@@ -10,7 +10,7 @@ export const leadService = {
   },
   post:async(user)=>{
     return await post({api:`${api}/save`,options:{
-      data:JSON.stringify({user})
+      data:{user}
     }})
   }
 }

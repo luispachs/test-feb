@@ -267,7 +267,7 @@ class LeadService {
       .populate({
         path: 'contact',
         select: 'first_name last_name document number',
-        options: { lean:true }
+        options: { lean:false }
       })
       .limit(100)
       .lean()
